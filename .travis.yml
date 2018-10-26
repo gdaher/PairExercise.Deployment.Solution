@@ -4,7 +4,7 @@ node_js:
 services:
   - postgresql # starts up postgres
 addons:
-  postgresql: '9.6' # highest available postgres version on Travis
+  postgresql: "9.6" # highest available postgres version on Travis
 dist: trusty # uses trusty environment
 sudo: false # when on trusty, uses Docker containers for speed
 notifications:
@@ -14,14 +14,14 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "deployment-exercise-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "app1984-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: app1894 # see README
+  api_key:
+    secure: jWJImQQzDXtY8+YjBhFgM6MjHUOlyWt/Z4P9yKuxDo4bpQCxQhvPa7HlV5QiZca7OUSovJT08HITraPRQLAat0h/0t3nUNT3nz3QqjSEqN4WPo1YUgtVr+xSuZD6v7QzQkDwlPS7uLEdoCu5I4IJH3tc9qMw3FCalnelsu/cjQMh9xJNyqBn+8PynxzaRC21K/Gj+XY9Uzq5HSxrmx1KJXVkmmoOiVVpF8D0ARPUyuzgW4d6fVJkEzGOR0AUf6PxCK0Jsz+tiNypCMVFVx++Fq0Me72fAZ0n19sCEu0USTNz0oL0Pezz4ABs7iPquBeoMeVfe7hIcj3PkkcOR5Oqx/i9iATwO8sH7j7kWN+QYeda2AyF3hgXe40LYes7tMAo+wkAUXmdE5GEiwh4YjEhVfZG5lNC488s1GGt5oh5xHTVXiRCUpYXwD9ZUHZ17XdUldkCIk+9C0jIOZr53+LvTVZuVYzcJAn7eK+Tya8MdQxwj4CNklZPmp2mzpcW15qimJ/0MVWnOJfGUM7Do56YxK+t3bPL2wznL7OyB2veNJaVGJJVVAJgsGCq+Ix2UdOHo4quiCdQzdo+iDQWpMsstFJQxzCWM8s81ArrTHoI0PmW0cxcKrs7/JjRiC02h5CabqijEVorjaDOYrk33+hjTCOkVT7uOf5voXufE7/h8no=
